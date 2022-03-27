@@ -5,10 +5,29 @@
  */
 
 require('./bootstrap');
+require('./axios');
+
+import store from "./vuex";
 
 window.Vue = require('vue').default;
 import Router from './routes/routes.js';
 
+import Swal from "sweetalert2";
+window.Swal = Swal
+
+const Toast = Swal.mixin({
+    toast:true,
+    position:'top-end',
+    showConfirmButton:false,
+    timer:2000,
+    timerProgressBar:true,
+    didOpen:(popup)=> {
+        toast.addEventListener('mouseenter',Swal.stopTimer)
+        toast.addEventListener('mouseleave',Swal.resumeTimer())
+    }
+})
+
+window.Toast = Toast
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -20,7 +39,8 @@ import Router from './routes/routes.js';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('App', require('./components/App.vue').default);
+Vue.component('headerApp', require('./layout/headerApp.vue').default);
+Vue.component('App', require('./layout/App.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,4 +51,5 @@ Vue.component('App', require('./components/App.vue').default);
 const app = new Vue({
     el: '#app',
     router: Router,
+    store : store,
 });

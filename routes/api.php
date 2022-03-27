@@ -19,3 +19,6 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
+Route::post('register',[\App\Http\Controllers\AuthController::class,'register']);
+Route::get('users',[\App\Http\Controllers\AuthController::class,'users']);
+Route::get('userremove',[\App\Http\Controllers\AuthController::class,'userremove']);
