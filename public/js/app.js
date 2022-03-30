@@ -5462,9 +5462,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "index",
+  data: function data() {
+    return {
+      item: {
+        name: '',
+        age: ''
+      }
+    };
+  },
+  methods: {
+    pushertest: function pushertest() {
+      axios.post('pusher', this.item).then()["catch"]();
+    }
+  },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['user'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['success']))
 });
 
@@ -5624,13 +5642,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "header",
   data: function data() {
-    return {};
+    return {
+      messages: {
+        name: 'name',
+        age: 'age'
+      }
+    };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    Pusher.logToConsole = true;
+    var pusher = new Pusher('1ad927b627e77f6386ea', {
+      cluster: 'mt1'
+    });
+    var this2 = this;
+    var channel = pusher.subscribe('alertchannel');
+    channel.bind('App\\Events\\AlertEvent', function (data) {
+      var mydata = JSON.parse(JSON.stringify(data));
+      this2.messages = mydata.message;
+    });
+  },
   methods: {
     logout: function logout() {
       var _this = this;
@@ -32497,6 +32543,54 @@ var render = function () {
     _c("h1", [_vm._v(_vm._s(_vm.user.name))]),
     _vm._v(" "),
     _c("h1", [_vm._v(_vm._s(_vm.user.email))]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.item.name,
+          expression: "item.name",
+        },
+      ],
+      attrs: { type: "text" },
+      domProps: { value: _vm.item.name },
+      on: {
+        input: function ($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.$set(_vm.item, "name", $event.target.value)
+        },
+      },
+    }),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.item.age,
+          expression: "item.age",
+        },
+      ],
+      attrs: { type: "number" },
+      domProps: { value: _vm.item.age },
+      on: {
+        input: function ($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.$set(_vm.item, "age", $event.target.value)
+        },
+      },
+    }),
+    _vm._v(" "),
+    _c(
+      "button",
+      { staticClass: "btn btn-danger", on: { click: _vm.pushertest } },
+      [_vm._v("pusher")]
+    ),
   ])
 }
 var staticRenderFns = []
@@ -32636,6 +32730,12 @@ var render = function () {
         ]),
       ]
     ),
+    _vm._v(" "),
+    _c("div", { staticStyle: { width: "300px", "text-align": "center" } }, [
+      _c("h1", [_vm._v(_vm._s(_vm.messages.name))]),
+      _vm._v(" "),
+      _c("h1", [_vm._v(_vm._s(_vm.messages.age))]),
+    ]),
   ])
 }
 var staticRenderFns = [

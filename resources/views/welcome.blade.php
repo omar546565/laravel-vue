@@ -7,6 +7,8 @@
         <title>Laravel</title>
         <link rel="stylesheet" href="{{mix('css/app.css')}}">
         <script type="module" src="{{mix('js/app.js')}}"  ></script>
+        <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <!-- Fonts -->
 
     </head>

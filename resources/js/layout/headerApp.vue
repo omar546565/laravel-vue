@@ -40,6 +40,18 @@
             </div>
         </div>
     </nav>
+
+    <div style="width: 300px;text-align: center">
+
+        <h1>{{messages.name}}</h1>
+        <h1>{{messages.age}}</h1>
+
+
+
+
+
+    </div>
+
 </div>
 </template>
 
@@ -50,10 +62,30 @@ export default {
     name: "header",
     data(){
         return{
+            messages: {
+                name:'name',
+                age:'age'
+            }
+
+
 
         }
     },
     mounted() {
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('1ad927b627e77f6386ea', {
+            cluster: 'mt1'
+        });
+        const this2 = this;
+        var channel = pusher.subscribe('alertchannel');
+        channel.bind('App\\Events\\AlertEvent', function(data) {
+
+             const mydata = JSON.parse(JSON.stringify(data))
+            this2.messages=mydata.message
+        });
+
+
     },
 
     methods:{

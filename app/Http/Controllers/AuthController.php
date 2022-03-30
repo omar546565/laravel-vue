@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AlertEvent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -73,6 +74,20 @@ class AuthController extends Controller
          return  response()->json([
              'success' => 1,
              'user' => $user
+         ],200);
+
+    }
+
+    public function pusher(Request $request)
+    {
+        $message = $request->all();
+
+        event(new AlertEvent($message));
+
+
+         return  response()->json([
+             'success' => 1,
+
          ],200);
 
     }
