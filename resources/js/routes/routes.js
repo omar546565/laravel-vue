@@ -5,6 +5,7 @@ Vue.use(Router)
 import loginapp from '../auth/login'
 import registerapp from '../auth/register'
 import index from '../components/index.vue'
+import profile from '../auth/profile.vue'
 import notFound from '../components/notFound.vue'
 
 const routes = [
@@ -12,6 +13,10 @@ const routes = [
     {
         path: '/',
         component:index
+    },
+    {
+        path: '/profile',
+        component:profile
     },
     {
         path: '/loginapp',

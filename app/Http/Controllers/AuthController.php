@@ -77,6 +77,20 @@ class AuthController extends Controller
          ],200);
 
     }
+ public function updateuser(Request $request)
+    {
+         User::where('id',$request->id)->update([
+             'name'=>$request->name,
+             'gender'=>$request->gender,
+             'mobile'=>$request->mobile,
+             'email'=>$request->email,
+         ]);
+         return  response()->json([
+             'success' => 1,
+
+         ],200);
+
+    }
 
     public function pusher(Request $request)
     {
