@@ -12,16 +12,11 @@ export default {
     name: "index",
     data(){
         return{
-            item:{
-                name:'',
-                age:''
-            }
+
         }
     },
     methods:{
-        pushertest(){
-            axios.post('pusher',this.item).then().catch()
-        }
+
 
     },
     computed:{

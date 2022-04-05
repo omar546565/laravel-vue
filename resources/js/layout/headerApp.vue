@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
@@ -23,6 +23,7 @@
                     <router-link to="/loginapp" v-if="success!=1"  > <button class="btn btn-success"  >login</button> </router-link>
 
                     <router-link to="/registerapp" v-if="success!=1"  > <button class="btn btn-primary"  >register</button> </router-link>
+
                     <div  v-if="success==1"  class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Setting
@@ -30,8 +31,10 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li> <router-link class="dropdown-item" to="/profile">profile</router-link></li>
 
+
                             <li><hr class="dropdown-divider"></li>
-                            <li>  <button class="btn btn-danger"  @click="logout" >logout</button></li>
+                            <li><button class="btn btn-danger"   @click="logout" >logout</button></li>
+
                         </ul>
                     </div>
 
@@ -41,12 +44,6 @@
         </div>
     </nav>
 
-    <div style="width: 300px;text-align: center">
-
-
-
-
-    </div>
 
 </div>
 </template>

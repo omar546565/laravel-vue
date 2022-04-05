@@ -5550,18 +5550,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "index",
   data: function data() {
-    return {
-      item: {
-        name: '',
-        age: ''
-      }
-    };
+    return {};
   },
-  methods: {
-    pushertest: function pushertest() {
-      axios.post('pusher', this.item).then()["catch"]();
-    }
-  },
+  methods: {},
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['user'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['success']))
 });
 
@@ -5626,17 +5617,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     headerApp: _headerApp__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  mounted: function mounted() {
-    if (localStorage.getItem('success') == 1) {
-      this.$router.push({
-        path: '/'
-      });
-    } else if (localStorage.getItem('success') != 1) {
-      this.$router.push({
-        path: '/loginapp'
-      });
-    }
-  },
+  mounted: function mounted() {},
   created: function created() {
     var _this = this;
 
@@ -5676,9 +5657,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
 //
 //
 //
@@ -5925,16 +5903,19 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
 
 var routes = [{
   path: '/',
-  component: _components_index_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _components_index_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+  name: '/'
 }, {
   path: '/profile',
   component: _auth_profile_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   path: '/loginapp',
-  component: _auth_login__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _auth_login__WEBPACK_IMPORTED_MODULE_2__["default"],
+  name: 'loginapp'
 }, {
   path: '/registerapp',
-  component: _auth_register__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _auth_register__WEBPACK_IMPORTED_MODULE_3__["default"],
+  name: 'registerapp'
 }, {
   path: '/:pathMatch(.*)*',
   component: _components_notFound_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
@@ -33063,8 +33044,6 @@ var render = function () {
         ]),
       ]
     ),
-    _vm._v(" "),
-    _c("div", { staticStyle: { width: "300px", "text-align": "center" } }),
   ])
 }
 var staticRenderFns = [
@@ -33108,7 +33087,7 @@ var staticRenderFns = [
           "a",
           {
             staticClass: "nav-link active",
-            attrs: { "aria-current": "page", href: "#" },
+            attrs: { "aria-current": "page", href: "/" },
           },
           [_vm._v("Home")]
         ),

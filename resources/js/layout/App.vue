@@ -16,11 +16,7 @@ export default {
         headerApp,
     },
     mounted() {
-        if (localStorage.getItem('success') ==1){
-            this.$router.push({path:'/'})
-        }else if(localStorage.getItem('success') !=1){
-            this.$router.push({path:'/loginapp'})
-        }
+
     },
     created() {
         axios.get('users').then((response)=>{
