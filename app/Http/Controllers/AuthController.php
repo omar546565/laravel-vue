@@ -79,11 +79,36 @@ class AuthController extends Controller
     }
  public function updateuser(Request $request)
     {
+
+        $request->validate([
+            'name'=>['required','string','max:255'],
+            'email'=>['required','string','email','max:255','unique:users'],
+            'mobile'=>['required','string','max:25','unique:users'],
+
+        ]);
+
          User::where('id',$request->id)->update([
              'name'=>$request->name,
              'gender'=>$request->gender,
              'mobile'=>$request->mobile,
              'email'=>$request->email,
+         ]);
+         return  response()->json([
+             'success' => 1,
+
+         ],200);
+
+    }
+ public function updatepass(Request $request)
+    {
+
+        $request->validate([
+            'password'=>['required','string','min:8','confirmed'],
+
+        ]);
+
+         User::where('id',$request->id)->update([
+             'password'=> Hash::make($request->password)  ,
          ]);
          return  response()->json([
              'success' => 1,

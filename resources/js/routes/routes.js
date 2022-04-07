@@ -9,30 +9,50 @@ import index from '../components/index.vue'
 import profile from '../auth/profile.vue'
 import notFound from '../components/notFound.vue'
 
+
 const routes = [
 
     {
         path: '/',
         component:index,
         name:'/',
+      beforeEnter:(to,from,next) => {
+            let isAuth = localStorage.getItem('success');
+            if (isAuth != 1)next({name:'loginapp'})
+            else next()
+      }
+
 
     },
 
     {
         path: '/profile',
-        component:profile
+        component:profile,
+        beforeEnter:(to,from,next) => {
+            let isAuth = localStorage.getItem('success');
+            if (isAuth != 1)next({name:'loginapp'})
+            else next()
+        }
     },
     {
         path: '/loginapp',
         component:loginapp,
         name:'loginapp',
-
+        beforeEnter:(to,from,next) => {
+            let isAuth = localStorage.getItem('success');
+            if (isAuth == 1)next({name:'/'})
+            else next()
+        }
     },
     {
         path: '/registerapp',
         component:registerapp,
         name:'registerapp',
-
+        beforeEnter:(to,from,next) => {
+            let isAuth = localStorage.getItem('success');
+            if (isAuth == 1)next({name:'/'})
+            else next()
+        }
     },
     {
         path: '/:pathMatch(.*)*',
