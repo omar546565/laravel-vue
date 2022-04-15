@@ -10,14 +10,28 @@
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-
+            <button :style="show" class="btn bg-success" @click="uplaodimage" >تحميل الصورة</button>
+            <cropper
+                class="cropper"
+                :src="img"
+                :stencil-props="{
+                      aspectRatio: 10/13
+                    }"
+                @change="change"
+            ></cropper>
             <div class="tab-pane fade show active"  id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div>
                     <h1>profile</h1>
                     <div class="col-md-2 p-3 m-auto border-2 card" >
-                        <div class="mb-3" >
+                        <div hidden class="mb-3" >
                             <label  >id</label>
                             <input type="number" class="form-control" v-model="user.id">
+
+                        </div>
+                        <div  class="mb-3" >
+
+                            <img v-bind:src="upload ? image : 'image/'+user.image"  width="100" height="130" @click="openinput">
+                            <input hidden type="file" class="form-control" @change="updateimage"  id="file-fild">
 
                         </div>
                         <div class="mb-3" >
@@ -91,6 +105,8 @@
 <script>
 import {mapGetters} from "vuex";
 import axios from "axios";
+import { Cropper } from 'vue-advanced-cropper'
+import 'vue-advanced-cropper/dist/style.css';
 
 export default {
     name: "profile",
@@ -100,6 +116,10 @@ export default {
                 password:"",
                 password_confirmation:""
             },
+            show: 'display: none;',
+            img: '',
+            image:'',
+            upload:false,
             errors:{
                 name:{},
                 email:{},
@@ -109,6 +129,45 @@ export default {
         }
     },
     methods:{
+        change({coordinates, canvas}) {
+            this.image = canvas.toDataURL()
+            this.user.image = canvas.toDataURL()
+            console.log(coordinates, canvas)
+        },
+        uplaodimage(){
+
+
+            axios.post('updateuserimage',this.user).then((response)=>{
+                Toast.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    text: 'تم تغيير الصورة ',
+                })
+                this.img = ''
+                this.show= 'display: none;'
+            }).catch((errors)=>{
+                    this.errors = errors.response.data.errors;
+
+                }
+            )
+        },
+
+        openinput(){
+            document.getElementById('file-fild').click()
+        },
+        updateimage(e){
+            var reader ,files = e.target.files
+            if (files.length===0){
+                alert('empty')
+            }
+            reader = new FileReader()
+            reader.onload= (e)=>{
+                this.show= 'display: block;'
+                this.img = e.target.result
+                this.upload = true
+            }
+            reader.readAsDataURL(files[0])
+        },
        updateuser(){
            axios.post('updateuser',this.user).then((response)=>{
                    Toast.fire({
@@ -141,6 +200,7 @@ export default {
        }
     },
     computed:{
+        Cropper,
         ...mapGetters(['user']),
         ...mapGetters(['success']),
     },

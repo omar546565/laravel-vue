@@ -53,6 +53,7 @@ class AuthController extends Controller
           User::create([
               'name'=> $request->name,
               'email'=>$request->email,
+              'image'=>'tabyan6.png',
               'password'=> Hash::make($request->password)  ,
           ]);
           if (! $token = auth('api')->attempt(['email'=>$request->email,'password'=> $request->password])) {
@@ -97,6 +98,34 @@ class AuthController extends Controller
              'success' => 1,
 
          ],200);
+
+    }
+ public function updateuserimage(Request $request)
+    {
+         if ($request->image != ''){
+             $User=User::find($request->id);
+             if ($User->image != ''){
+                 unlink('image/'.$User->image);
+             }
+             $data = $request->image;
+             $array1 = explode(";",$data);
+             $array2 = explode(",",$array1[1]);
+             $data = base64_decode($array2[1]);
+             $imagename = time().'.png';
+             file_put_contents('image/'.$imagename,$data);
+
+             User::where('id',$request->id)->update([
+                 'image'=>$imagename,
+
+             ]);
+             return  response()->json([
+                 'success' => 1,
+
+             ],200);
+
+         }
+
+
 
     }
  public function updatepass(Request $request)

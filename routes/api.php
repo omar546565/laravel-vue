@@ -22,6 +22,7 @@ Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
 Route::post('register',[\App\Http\Controllers\AuthController::class,'register']);
 Route::get('users',[\App\Http\Controllers\AuthController::class,'users']);
 Route::post('updateuser',[\App\Http\Controllers\AuthController::class,'updateuser']);
+Route::post('updateuserimage',[\App\Http\Controllers\AuthController::class,'updateuserimage']);
 Route::post('updatepass',[\App\Http\Controllers\AuthController::class,'updatepass']);
 Route::post('pusher',[\App\Http\Controllers\AuthController::class,'pusher']);
 Route::get('userremove',[\App\Http\Controllers\AuthController::class,'userremove']);

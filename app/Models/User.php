@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
         'name',
         'gender',
         'email',
+        'image',
         'mobile',
         'password',
     ];
