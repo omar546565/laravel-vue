@@ -2,8 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NamelastController;
 
-/*
+ /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -18,11 +20,14 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
-Route::post('register',[\App\Http\Controllers\AuthController::class,'register']);
-Route::get('users',[\App\Http\Controllers\AuthController::class,'users']);
-Route::post('updateuser',[\App\Http\Controllers\AuthController::class,'updateuser']);
-Route::post('updateuserimage',[\App\Http\Controllers\AuthController::class,'updateuserimage']);
-Route::post('updatepass',[\App\Http\Controllers\AuthController::class,'updatepass']);
-Route::post('pusher',[\App\Http\Controllers\AuthController::class,'pusher']);
-Route::get('userremove',[\App\Http\Controllers\AuthController::class,'userremove']);
+Route::post('login',[AuthController::class,'login']);
+Route::post('register',[AuthController::class,'register']);
+Route::get('users',[AuthController::class,'users']);
+Route::post('updateuser',[AuthController::class,'updateuser']);
+Route::post('updateuserimage',[AuthController::class,'updateuserimage']);
+Route::post('updatepass',[AuthController::class,'updatepass']);
+Route::post('pusher',[AuthController::class,'pusher']);
+Route::get('userremove',[AuthController::class,'userremove']);
+
+
+Route::resource('namelast', NamelastController::class);

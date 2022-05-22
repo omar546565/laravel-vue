@@ -5697,13 +5697,126 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "index",
   data: function data() {
-    return {};
+    return {
+      item: {
+        name: '',
+        namelast: '',
+        mobile: ''
+      },
+      nameslastall: [],
+      isEdit: false
+    };
   },
-  methods: {},
+  mounted: function mounted() {
+    this.indexitem();
+  },
+  methods: {
+    additem: function additem() {
+      var _this = this;
+
+      axios.post('namelast', this.item).then(function (res) {
+        Toast.fire({
+          position: 'top-center',
+          icon: 'success',
+          text: 'تم إدخال البيانات بنجاح '
+        });
+        _this.item = {};
+
+        _this.indexitem();
+      });
+    },
+    updateitem: function updateitem() {
+      var _this2 = this;
+
+      axios.put('namelast/' + this.item.id, this.item).then(function (res) {
+        Toast.fire({
+          position: 'top-center',
+          icon: 'success',
+          text: 'تم تحديث البيانات بنجاح '
+        });
+        _this2.item = {};
+
+        _this2.indexitem();
+      });
+    },
+    indexitem: function indexitem() {
+      var _this3 = this;
+
+      axios.get('namelast').then(function (res) {
+        _this3.nameslastall = res.data.nameslast;
+      });
+    },
+    editeitem: function editeitem(nameslast) {
+      this.isEdit = true;
+      this.item = {
+        id: nameslast.id,
+        name: nameslast.name,
+        namelast: nameslast.namelast,
+        mobile: nameslast.mobile
+      };
+    },
+    deleteitem: function deleteitem(id) {
+      var _this4 = this;
+
+      axios["delete"]('namelast/' + id).then(function (res) {
+        Toast.fire({
+          position: 'top-center',
+          icon: 'error',
+          text: 'تم حذف البيانات بنجاح '
+        });
+
+        _this4.indexitem();
+      });
+    }
+  },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['user'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['success']))
 });
 
@@ -5882,6 +5995,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: {
+    logoutforce: function logoutforce() {
+      this.$store.dispatch('success', 0);
+      this.$store.dispatch('user', '');
+      localStorage.setItem('token', '');
+      localStorage.setItem('success', 0);
+    },
     logout: function logout() {
       var _this = this;
 
@@ -33748,9 +33867,190 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "card p-3",
+        staticStyle: { margin: "auto", width: "300px" },
+      },
+      [
+        _c("div", { staticClass: "mb-3" }, [
+          _c("label", { staticClass: "form-label" }, [_vm._v("name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.item.name,
+                expression: "item.name",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "name", placeholder: "name" },
+            domProps: { value: _vm.item.name },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.item, "name", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-3" }, [
+          _c("label", { staticClass: "form-label" }, [_vm._v("namelast")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.item.namelast,
+                expression: "item.namelast",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "namelast", placeholder: "namelast" },
+            domProps: { value: _vm.item.namelast },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.item, "namelast", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-3" }, [
+          _c("label", { staticClass: "form-label" }, [_vm._v("mobile")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.item.mobile,
+                expression: "item.mobile",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "mobile", placeholder: "mobile" },
+            domProps: { value: _vm.item.mobile },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.item, "mobile", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        !_vm.isEdit
+          ? _c(
+              "button",
+              { staticClass: "btn btn-success", on: { click: _vm.additem } },
+              [_vm._v("add")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.isEdit
+          ? _c(
+              "button",
+              { staticClass: "btn btn-primary", on: { click: _vm.updateitem } },
+              [_vm._v("update")]
+            )
+          : _vm._e(),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "card p-3 mt-2",
+        staticStyle: { margin: "auto", width: "90%" },
+      },
+      [
+        _c("table", { staticClass: "table" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.nameslastall, function (nameslast) {
+              return _c("tr", [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(nameslast.id)),
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(nameslast.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(nameslast.namelast))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(nameslast.mobile))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function ($event) {
+                          return _vm.editeitem(nameslast)
+                        },
+                      },
+                    },
+                    [_vm._v("edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function ($event) {
+                          return _vm.deleteitem(nameslast.id)
+                        },
+                      },
+                    },
+                    [_vm._v("delete")]
+                  ),
+                ]),
+              ])
+            }),
+            0
+          ),
+        ]),
+      ]
+    ),
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("First")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Last")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("mobile")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("edit - delete")]),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -33855,9 +34155,14 @@ var render = function () {
                 [
                   _vm.success != 1
                     ? _c("router-link", { attrs: { to: "/loginapp" } }, [
-                        _c("button", { staticClass: "btn btn-success" }, [
-                          _vm._v("login"),
-                        ]),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            on: { click: _vm.logoutforce },
+                          },
+                          [_vm._v("login")]
+                        ),
                       ])
                     : _vm._e(),
                   _vm._v(" "),

@@ -20,7 +20,7 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <router-link to="/loginapp" v-if="success!=1"  > <button class="btn btn-success"  >login</button> </router-link>
+                    <router-link to="/loginapp" v-if="success!=1"  > <button @click="logoutforce" class="btn btn-success"  >login</button> </router-link>
 
                     <router-link to="/registerapp" v-if="success!=1"  > <button class="btn btn-primary"  >register</button> </router-link>
 
@@ -82,6 +82,12 @@ export default {
     },
 
     methods:{
+        logoutforce(){
+            this.$store.dispatch('success',0);
+            this.$store.dispatch('user','');
+            localStorage.setItem('token','')
+            localStorage.setItem('success',0)
+        },
         logout(){
             axios.get('userremove').then((response)=>{
 
